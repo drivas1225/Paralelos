@@ -1,0 +1,36 @@
+CC=gcc
+CFLAGS=-g -Wall 
+THREAD_LIB=-lm -lpthread
+
+SOURCE_BUSY=pth_pi_busy2.c
+OBJ_BUSY=pi_busywait.out
+
+SOURCE_MUTEX=pth_pi_mutex.c
+OBJ_MUTEX=pi_mutex.out
+
+make:
+	$(CC) $(CFLAGS) $(THREAD_LIB) $(SOURCE_BUSY) -o $(OBJ_BUSY)
+	$(CC) $(CFLAGS) $(THREAD_LIB) $(SOURCE_MUTEX) -o $(OBJ_MUTEX)
+
+clean: 
+	rm *.out
+
+testBusyWaiting:
+	./$(OBJ_BUSY) 1 100000000
+	./$(OBJ_BUSY) 2 100000000
+	./$(OBJ_BUSY) 4 100000000
+	./$(OBJ_BUSY) 8 100000000
+	./$(OBJ_BUSY) 16 100000000
+	./$(OBJ_BUSY) 32 100000000
+	./$(OBJ_BUSY) 64 100000000
+
+testMutex:
+	./$(OBJ_MUTEX) 1 100000000
+	./$(OBJ_MUTEX) 2 100000000
+	./$(OBJ_MUTEX) 4 100000000
+	./$(OBJ_MUTEX) 8 100000000
+	./$(OBJ_MUTEX) 16 100000000
+	./$(OBJ_MUTEX) 32 100000000
+	./$(OBJ_MUTEX) 64 100000000
+
+
